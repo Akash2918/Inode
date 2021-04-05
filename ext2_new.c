@@ -76,6 +76,9 @@ int main(int argc, char* argv[]){
 	lseek(fd, dirent.rec_len - sizeof(struct ext2_dir_entry_2), SEEK_CUR);
 	read(fd, &dirent, sizeof(struct ext2_dir_entry_2));
 	printf("Inode no: %u Name: %s  File type: %d\n", dirent.inode, dirent.name, dirent.file_type);
+	lseek(fd, dirent.rec_len - sizeof(struct ext2_dir_entry_2), SEEK_CUR);
+	read(fd, &dirent, sizeof(struct ext2_dir_entry_2));
+	printf("Inode no: %u Name: %s  File type: %d\n", dirent.inode, dirent.name, dirent.file_type);
 	
 	printf("\n\nInside the read_inode\n");
 
