@@ -34,7 +34,7 @@ int main(int argc, char* argv[]){
 	fd = open(argv[1], O_RDONLY);
 	if(fd == -1){
 		perror("Readsuper:");
-		exit(erron);
+		exit(errno);
 	}
 
 	int i, j, k;
@@ -55,6 +55,12 @@ int main(int argc, char* argv[]){
 	// 		strcpy(Dest[i])
 	// 	}
 	// }
+
+	if(super.s_magic != EXT2_SUPER_MAGIC){
+		printf("Not an ext2 file system\n");
+		exit(1);
+	}
+
 	printf("The size of super_block is %lu\n",sizeof(struct ext2_super_block) );
 	printf("The size of BG DESC = %lu\n", sizeof(struct ext2_group_desc));
 
@@ -67,7 +73,7 @@ int main(int argc, char* argv[]){
 
 	block_size = BASE_OFFSET << super.s_log_block_size;
 	printf("The block size is : %d\n", block_size);
-
+	printf("Last mounted : %s\n", super.s_last_mounted);
 	return 0;
 }
 
