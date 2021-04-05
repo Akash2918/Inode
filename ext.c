@@ -12,7 +12,7 @@
 #define BASE_OFFSET 1024
 
 char Dest[2048][100];
-strcpy(Dest[0], "/");
+//strcpy(Dest[0], "/");
 
 void parse_the_path(char *path){
 	int i = 1, j=0;
@@ -55,18 +55,22 @@ int main(int argc, char* argv[]){
 	// 		strcpy(Dest[i])
 	// 	}
 	// }
-
-	if(super.s_magic != EXT2_SUPER_MAGIC){
-		printf("Not an ext2 file system\n");
-		exit(1);
-	}
+	
+	//printf("The magic number is : %x\n", super.s_magic);
+	
+	
 
 	printf("The size of super_block is %lu\n",sizeof(struct ext2_super_block) );
 	printf("The size of BG DESC = %lu\n", sizeof(struct ext2_group_desc));
 
 	lseek(fd, BASE_OFFSET, SEEK_CUR);
 	read(fd, &super, sizeof(struct ext2_super_block));
-
+	
+	if(super.s_magic != EXT2_SUPER_MAGIC){
+		fprintf(stderr,"Not an ext2 file system\n");
+		exit(1);
+	}
+	
 	printf("Magic : %x\n", super.s_magic);
 	printf("Inodes count: %d\n", super.s_inodes_count);
 	printf("Block size : %d\n", super.s_log_block_size);

@@ -42,7 +42,7 @@ int main(int argc, char *argv[]){
 	count = read(fd, &sb, sizeof(struct ext2_super_block));
 	printf("Magic: %x\n", sb.s_magic);
 	printf("Inodes Count: %d\n", sb.s_inodes_count);
-	printf("Blocks Count: %d\n", sb.s_log_block_count);
+	//printf("Blocks Count: %d\n", sb.s_log_block_count);
 	printf("Blocks Size: %d\n", sb.s_log_block_size);
 	block_size = 1024 << sb.s_log_block_size;
 	printf("Last mounted : %s\n", sb.s_last_mounted);
